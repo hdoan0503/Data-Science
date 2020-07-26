@@ -14,7 +14,7 @@
 # 
 # The columns are organized as # of Summer games, Summer medals, # of Winter games, Winter medals, total # number of games, total # of medals. Use this dataset to answer the questions below.
 
-# In[25]:
+# In[71]:
 
 
 import pandas as pd
@@ -46,7 +46,7 @@ df.head()
 # 
 # *This function should return a Series.*
 
-# In[26]:
+# In[72]:
 
 
 # You should write your whole answer within the function provided. The autograder will call
@@ -66,7 +66,7 @@ answer_zero()
 # 
 # *This function should return a single string value.*
 
-# In[27]:
+# In[73]:
 
 
 def answer_one():
@@ -78,7 +78,7 @@ def answer_one():
 # 
 # *This function should return a single string value.*
 
-# In[28]:
+# In[74]:
 
 
 def answer_two():
@@ -94,12 +94,13 @@ def answer_two():
 # 
 # *This function should return a single string value.*
 
-# In[29]:
+# In[75]:
 
 
 def answer_three():
-    df_swgold = df[df['Gold'] >= 1 & df['Gold.1'] >=1]
-    return ((df_swgold['Gold'] - df_swgold['Gold.1']) / df_swgold['Gold.2']).abs().argmax()
+    df_swgold = df[(df['Gold'] >= 1) & (df['Gold.1'] >=1)]
+    return ((df_swgold['Gold'] - df_swgold['Gold.1']) / df_swgold['Gold.2']).argmax()
+answer_three()
 
 
 # ### Question 4
@@ -107,12 +108,13 @@ def answer_three():
 # 
 # *This function should return a Series named `Points` of length 146*
 
-# In[30]:
+# In[76]:
 
 
 def answer_four():
-    df['Points'] = df.Series(df['Gold.2'] * 3 + df['Silver.2'] * 2 + df['Bronze.2'])
+    df['Points'] = (df['Gold.2'] * 3) + (df['Silver.2'] * 2) + df['Bronze.2']
     return df['Points']
+answer_four()
 
 
 # ## Part 2
@@ -125,14 +127,14 @@ def answer_four():
 # 
 # *This function should return a single string value.*
 
-# In[31]:
+# In[77]:
 
 
 census_df = pd.read_csv('census.csv')
 census_df.head()
 
 
-# In[32]:
+# In[78]:
 
 
 def answer_five():
@@ -145,12 +147,12 @@ def answer_five():
 # 
 # *This function should return a list of string values.*
 
-# In[33]:
+# In[79]:
 
 
 def answer_six():
     counties_df = census_df[census_df['SUMLEV'] == 50]
-    top_counties_df = counties_df.sort_values(by= 'CENSUS2010POP', ascending = False).groupby('STNAME').head()
+    top_counties_df = counties_df.sort_values(by= 'CENSUS2010POP', ascending = False).groupby('STNAME').head(3)
     return top_counties_df.groupby('STNAME').sum().sort_values(by='CENSUS2010POP', ascending = False).head(3).index.tolist()
 
 
@@ -161,7 +163,7 @@ def answer_six():
 # 
 # *This function should return a single string value.*
 
-# In[34]:
+# In[80]:
 
 
 def answer_seven():
@@ -186,7 +188,7 @@ def answer_seven():
 # 
 # *This function should return a 5x2 DataFrame with the columns = ['STNAME', 'CTYNAME'] and the same index ID as the census_df (sorted ascending by index).*
 
-# In[35]:
+# In[81]:
 
 
 def answer_eight():
